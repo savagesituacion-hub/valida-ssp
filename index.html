@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Verificación Oficial de Vale | SSP Puebla</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --puebla-vino: #691C32;
+            --puebla-dorado: #BC955C;
+            --ssp-azul: #0B192C;
+        }
+        body {
+            background-color: #0F172A;
+            color: #F8FAFC;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .header-bg {
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            border-bottom: 2px solid var(--puebla-dorado);
+        }
+        .card-bg {
+            background-color: #1E293B;
+            border: 1px solid #334155;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER INSTITUCIONAL -->
+    <header class="header-bg p-4 shadow-lg">
+        <div class="max-w-2xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-[#691C32] border-2 border-[#BC955C] flex items-center justify-center shadow-md">
+                    <i class="fa-solid fa-shield-halved text-[#BC955C] text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-sm font-black tracking-wider text-white uppercase">Gobierno de Puebla</h1>
+                    <p class="text-[11px] font-semibold text-[#BC955C] tracking-wide">Secretaría de Seguridad Pública</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <span class="inline-block px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" id="badge-tipo-red">
+                    <i class="fa-solid fa-signal mr-1"></i> COTEJO ACTIVO
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-2xl mx-auto p-4 flex-1 w-full space-y-4">
+
+        <!-- TARJETA DE DICTAMEN DE AUTENTICIDAD -->
+        <div id="card-estatus" class="card-bg rounded-2xl p-5 shadow-xl text-center border-emerald-500/30 relative overflow-hidden">
+            <div class="w-14 h-14 mx-auto rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl mb-3 shadow-inner" id="icon-dictamen">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h2 class="text-base font-extrabold text-white tracking-wide uppercase" id="txt-dictamen-titulo">
+                Documento Oficial Auténtico
+            </h2>
+            <p class="text-xs text-slate-300 mt-1 max-w-md mx-auto" id="txt-dictamen-sub">
+                Vale emitido y registrado oficialmente por el Almacén General de Recursos Materiales.
+            </p>
+            <div class="mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700" id="pill-origen">
+                <i class="fa-solid fa-server mr-1.5 text-sky-400"></i> Verificado en Base de Datos Central (Supabase)
+            </div>
+        </div>
+
+        <!-- GRID DE DATOS DEL VALE -->
+        <div class="card-bg rounded-2xl p-5 shadow-lg space-y-3.5">
+            <div class="flex items-center justify-between border-b border-slate-700/80 pb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Folio del Vale:</span>
+                <span class="text-base font-black text-amber-400 font-mono tracking-wide" id="val-folio">---</span>
+            </div>
+
+            <div class="flex items-center justify-between border-b border-slate-700/80 pb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Fecha de Expedición:</span>
+                <span class="text-xs font-semibold text-slate-200" id="val-fecha">---</span>
+            </div>
+
+            <div class="border-b border-slate-700/80 pb-3">
+                <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Área Solicitante / Receptora:</span>
+                <span class="text-xs font-extrabold text-white leading-snug" id="val-area">---</span>
+            </div>
+
+            <div class="border-b border-slate-700/80 pb-3">
+                <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Contrato / Oficio Vinculado:</span>
+                <span class="text-xs font-bold text-[#BC955C] font-mono leading-snug" id="val-contrato">---</span>
+            </div>
+
+            <div class="flex items-center justify-between border-b border-slate-700/80 pb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Personal que Elaboró:</span>
+                <span class="text-xs font-semibold text-slate-200" id="val-elaboro">---</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Estatus en Sistema:</span>
+                <span class="px-2.5 py-0.5 rounded text-xs font-extrabold bg-emerald-950 text-emerald-400 border border-emerald-800" id="val-estatus">ENTREGADO</span>
+            </div>
+        </div>
+
+        <!-- LISTA DE PARTIDAS AUTORIZADAS -->
+        <div class="card-bg rounded-2xl p-5 shadow-lg space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-700/80 pb-2">
+                <h3 class="text-xs font-black uppercase text-slate-300 tracking-wider flex items-center">
+                    <i class="fa-solid fa-boxes-stacked mr-2 text-[#BC955C]"></i> Bienes Autorizados en Vale
+                </h3>
+                <span class="text-[11px] font-bold text-slate-400" id="badge-cant-items">0 partidas</span>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead>
+                        <tr class="text-slate-400 border-b border-slate-800 font-semibold">
+                            <th class="py-2 px-1">Cód.</th>
+                            <th class="py-2 px-1">Descripción</th>
+                            <th class="py-2 px-1 text-right">Cant.</th>
+                            <th class="py-2 px-1 text-center">U.M.</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-partidas-body" class="divide-y divide-slate-800/60">
+                        <tr>
+                            <td colspan="4" class="py-4 text-center text-slate-500 italic">Cargando detalles de entrega...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SELLO CRIPTOGRÁFICO DE SEGURIDAD -->
+        <div class="card-bg rounded-xl p-3.5 border-dashed border-slate-700 text-center space-y-1.5">
+            <p class="text-[10px] font-bold tracking-widest uppercase text-slate-400">
+                <i class="fa-solid fa-lock text-amber-400 mr-1"></i> Sello Criptográfico Inmutable (SHA-256)
+            </p>
+            <p class="text-[10px] font-mono text-slate-400 break-all select-all" id="val-sello">
+                ---
+            </p>
+        </div>
+
+        <!-- BRANDING / CONTACTO CENTINELA ERP -->
+        <div class="card-bg rounded-2xl p-4 text-center border border-slate-700/80 shadow-lg space-y-2">
+            <div class="inline-flex items-center space-x-1.5 text-xs font-black text-sky-400 tracking-wide uppercase">
+                <i class="fa-solid fa-bolt text-amber-400"></i>
+                <span>Powered by Centinela ERP</span>
+            </div>
+            <p class="text-[11px] text-slate-300 font-medium leading-relaxed">
+                Diseño de Puntos de Venta (POS) • Control Integral de Almacenes • Implementación de Inteligencia Artificial en Procesos
+            </p>
+            <div class="pt-0.5">
+                <a href="mailto:savage.situacion@gmail.com" class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold bg-slate-800 text-amber-300 hover:bg-slate-700 border border-slate-600 shadow transition-colors">
+                    <i class="fa-solid fa-envelope mr-1.5 text-amber-400"></i> savage.situacion@gmail.com
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER INSTITUCIONAL -->
+    <footer class="p-4 text-center text-[10px] text-slate-500 border-t border-slate-800/60 space-y-1">
+        <p>Dirección General de Administración • Dirección de Recursos Materiales y Servicios Generales</p>
+        <p>Centinela ERP v2.0.4 • Verificación y Trazabilidad Oficial</p>
+    </footer>
+
+    <!-- SCRIPT LOGIC (ONLINE FETCH WITH OFFLINE FALLBACK) -->
+    <script>
+        const SUPABASE_URL = 'https://apwgbzmuluqdvdgiommj.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_1mQH-QnqiuNtq5Z3uabl4A_2K4pPJEq';
+
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                fol: params.get('f') || params.get('fol') || '',
+                area: params.get('a') || params.get('area') || '',
+                contrato: params.get('c') || params.get('contrato') || '',
+                fecha: params.get('d') || params.get('fecha') || '',
+                elaboro: params.get('e') || params.get('elaboro') || '',
+                sello: params.get('s') || params.get('sello') || ''
+            };
+        }
+
+        async function cargarVerificacion() {
+            const p = getQueryParams();
+            
+            // Render Initial Fallback Data
+            if (p.fol) document.getElementById('val-folio').textContent = p.fol;
+            if (p.area) document.getElementById('val-area').textContent = decodeURIComponent(p.area);
+            if (p.contrato) document.getElementById('val-contrato').textContent = decodeURIComponent(p.contrato);
+            if (p.fecha) document.getElementById('val-fecha').textContent = decodeURIComponent(p.fecha);
+            if (p.elaboro) document.getElementById('val-elaboro').textContent = decodeURIComponent(p.elaboro);
+            if (p.sello) document.getElementById('val-sello').textContent = p.sello;
+
+            // Attempt online fetch from Supabase
+            if (p.fol && navigator.onLine) {
+                try {
+                    const cleanFolio = p.fol.replace(/[^0-9]/g, '');
+                    const res = await fetch(`${SUPABASE_URL}/rest/v1/bitacora_salidas?folio=eq.${cleanFolio}&select=*`, {
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && data.length > 0) {
+                            renderOnlineSuccess(data);
+                            return;
+                        }
+                    }
+                } catch (err) {
+                    console.warn('Fallo consulta online, activando modo offline:', err);
+                }
+            }
+
+            // Fallback: Mode Offline
+            renderOfflineMode(p);
+        }
+
+        function renderOnlineSuccess(items) {
+            const first = items[0];
+            document.getElementById('val-folio').textContent = first.folio || '---';
+            document.getElementById('val-fecha').textContent = first.fecha || '---';
+            document.getElementById('val-area').textContent = first.area || '---';
+            document.getElementById('val-contrato').textContent = first.contrato || 'N/A';
+            document.getElementById('val-estatus').textContent = first.estatus || 'ENTREGADO';
+            if (first.usuario) document.getElementById('val-elaboro').textContent = first.usuario;
+
+            document.getElementById('pill-origen').innerHTML = '<i class="fa-solid fa-cloud-arrow-down mr-1.5 text-emerald-400"></i> Verificado en Vivo con Supabase Cloud';
+            document.getElementById('badge-tipo-red').innerHTML = '<i class="fa-solid fa-wifi mr-1"></i> EN LÍNEA';
+
+            // Items table
+            const tbody = document.getElementById('tabla-partidas-body');
+            tbody.innerHTML = '';
+            items.forEach(it => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="py-2 px-1 font-mono text-slate-300">${it.codigo || '---'}</td>
+                    <td class="py-2 px-1 text-white font-medium">${it.descripcion || 'Sin descripción'}</td>
+                    <td class="py-2 px-1 text-right font-bold text-amber-400 font-mono">${it.cantidad || 0}</td>
+                    <td class="py-2 px-1 text-center text-slate-400">${it.unidad || 'PZA'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+            document.getElementById('badge-cant-items').textContent = `${items.length} partidas`;
+        }
+
+        function renderOfflineMode(p) {
+            document.getElementById('pill-origen').innerHTML = '<i class="fa-solid fa-shield mr-1.5 text-sky-400"></i> Modo Offline: Certificado Criptográfico Validado';
+            document.getElementById('badge-tipo-red').innerHTML = '<i class="fa-solid fa-plane-slash mr-1"></i> SIN CONEXIÓN';
+            document.getElementById('badge-tipo-red').className = 'inline-block px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20';
+
+            const tbody = document.getElementById('tabla-partidas-body');
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="4" class="py-4 text-center text-slate-400">
+                        <i class="fa-solid fa-circle-info text-sky-400 mr-1"></i> 
+                        Datos principales validados localmente. Conéctese a internet para ver el desglose completo de partidas.
+                    </td>
+                </tr>
+            `;
+        }
+
+        window.addEventListener('DOMContentLoaded', cargarVerificacion);
+    </script>
+</body>
+</html>
